@@ -11,19 +11,9 @@ export default class Character {
     // region check name end
 
     // region check type
-    if (typeof type !== 'string') {
-      throw new Error('Значение типа персонажа должно быть строкой');
-    } else if (type === 'Bowman' || type === 'Daemon') {
-      this.attack = 25;
-      this.defence = 25;
-    } else if (type === 'Swordsman' || type === 'Undead') {
-      this.attack = 40;
-      this.defence = 10;
-    } else if (type === 'Magician' || type === 'Zombie') {
-      this.attack = 10;
-      this.defence = 40;
-    } else {
-      throw new Error('Недопустимое значение типа персонажа');
+    const validTypes = ['Bowman', 'Swordsman', 'Magician', 'Daemon', 'Undead', 'Zombie'];
+    if (!validTypes.includes(type)) {
+      throw new Error('Передайте допустимый тип персонажа');
     }
     // region check type end
 

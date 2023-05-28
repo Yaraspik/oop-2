@@ -1,42 +1,89 @@
-import Character from '../character';
+import Bowman from '../bowman';
+import Daemon from '../daemon';
+import Magician from '../magician';
+import Swordsman from '../swordsman';
+import Undead from '../undead';
+import Zombie from '../zombie';
 
-test('create character Bowman or Daemon', () => {
-  const character = new Character('Jack', 'Bowman');
+test('create Bowman', () => {
+  const character = new Bowman('Miyagi', 'Bowman');
   expect(character).toEqual(
     {
       attack: 25,
       defence: 25,
       health: 100,
       level: 1,
-      name: 'Jack',
+      name: 'Miyagi',
       type: 'Bowman',
     },
   );
 });
 
-test('create character Swordsman or Undead', () => {
-  const character = new Character('Jack', 'Swordsman');
+test('create Undead', () => {
+  const character = new Undead('Miyagi', 'Undead');
   expect(character).toEqual(
     {
-      attack: 40,
-      defence: 10,
+      attack: 25,
+      defence: 25,
       health: 100,
       level: 1,
-      name: 'Jack',
-      type: 'Swordsman',
+      name: 'Miyagi',
+      type: 'Undead',
     },
   );
 });
 
-test('create character Magician or Zombie', () => {
-  const character = new Character('Jack', 'Zombie');
+test('create Daemon', () => {
+  const character = new Daemon('Miyagi', 'Daemon');
   expect(character).toEqual(
     {
       attack: 10,
       defence: 40,
       health: 100,
       level: 1,
-      name: 'Jack',
+      name: 'Miyagi',
+      type: 'Daemon',
+    },
+  );
+});
+
+test('create Magician', () => {
+  const character = new Magician('Miyagi', 'Magician');
+  expect(character).toEqual(
+    {
+      attack: 10,
+      defence: 40,
+      health: 100,
+      level: 1,
+      name: 'Miyagi',
+      type: 'Magician',
+    },
+  );
+});
+
+test('create Swordsman', () => {
+  const character = new Swordsman('Miyagi', 'Swordsman');
+  expect(character).toEqual(
+    {
+      attack: 40,
+      defence: 10,
+      health: 100,
+      level: 1,
+      name: 'Miyagi',
+      type: 'Swordsman',
+    },
+  );
+});
+
+test('create Zombie', () => {
+  const character = new Zombie('Miyagi', 'Zombie');
+  expect(character).toEqual(
+    {
+      attack: 40,
+      defence: 10,
+      health: 100,
+      level: 1,
+      name: 'Miyagi',
       type: 'Zombie',
     },
   );
@@ -44,42 +91,35 @@ test('create character Magician or Zombie', () => {
 
 test('create not available character', () => {
   function createCharacter() {
-    return new Character('Jack', 'Pirat');
+    return new Bowman('Jack', 'Pirat');
   }
-  expect(createCharacter).toThrow('Недопустимое значение типа персонажа');
+  expect(createCharacter).toThrow('Передайте допустимый тип персонажа');
 });
 
 test('create character, name is not string', () => {
   function createCharacter() {
-    return new Character(123, 'Bowman');
+    return new Bowman(123, 'Bowman');
   }
   expect(createCharacter).toThrow('Значение имени должно быть строкой');
 });
 
 test('create character, name is short', () => {
   function createCharacter() {
-    return new Character('1', 'Bowman');
+    return new Bowman('1', 'Bowman');
   }
   expect(createCharacter).toThrow('Имя не может содержать меньше 2 символов');
 });
 
 test('create character, name is tall', () => {
   function createCharacter() {
-    return new Character('superpupercharacter', 'Bowman');
+    return new Bowman('superpupercharacter', 'Bowman');
   }
   expect(createCharacter).toThrow('Имя не может содержать больше 10 символов');
 });
 
-test('create character, type is not string', () => {
-  function createCharacter() {
-    return new Character('Miyagi', 123);
-  }
-  expect(createCharacter).toThrow('Значение типа персонажа должно быть строкой');
-});
-
 test('create character, level up for dead character', () => {
   function levelUp() {
-    const character = new Character('Miyagi', 'Zombie');
+    const character = new Zombie('Miyagi', 'Zombie');
     character.health = 0;
     character.levelUp();
   }
@@ -87,7 +127,7 @@ test('create character, level up for dead character', () => {
 });
 
 test('create character, level up', () => {
-  const character = new Character('Miyagi', 'Zombie');
+  const character = new Daemon('Miyagi', 'Daemon');
   character.levelUp();
   expect(character).toEqual(
     {
@@ -96,13 +136,13 @@ test('create character, level up', () => {
       health: 100,
       level: 2,
       name: 'Miyagi',
-      type: 'Zombie',
+      type: 'Daemon',
     },
   );
 });
 
 test('create character, get critical damage', () => {
-  const character = new Character('Miyagi', 'Zombie');
+  const character = new Daemon('Miyagi', 'Daemon');
   character.damage(500);
   expect(character).toEqual(
     {
@@ -111,13 +151,13 @@ test('create character, get critical damage', () => {
       health: 0,
       level: 1,
       name: 'Miyagi',
-      type: 'Zombie',
+      type: 'Daemon',
     },
   );
 });
 
 test('create character, get damage', () => {
-  const character = new Character('Miyagi', 'Zombie');
+  const character = new Daemon('Miyagi', 'Daemon');
   character.damage(50);
   expect(character).toEqual(
     {
@@ -126,7 +166,7 @@ test('create character, get damage', () => {
       health: 70,
       level: 1,
       name: 'Miyagi',
-      type: 'Zombie',
+      type: 'Daemon',
     },
   );
 });
